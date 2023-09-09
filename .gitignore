@@ -1,0 +1,42 @@
+# Test coverage folder
+
+coverage/
+
+# Build folder
+dist/
+lib/
+
+# Package folders
+node_modules/
+
+# IDE folder
+.vscode/
+
+# Env file
+.env
+
+# Dependency directories
+node_modules
+jspm_packages
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+.idea/workspace.xml
+*.orig
+
+.history
+
+# launch.json Files
+#.vscode
