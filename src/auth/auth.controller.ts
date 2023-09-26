@@ -3,6 +3,7 @@ import { OkSuccessfulResponse } from 'errors'
 
 import AuthService from './auth.service'
 import AuthValidator from './validators/auth.validation'
+
 class AuthController {
   public async login(
     req: Request,

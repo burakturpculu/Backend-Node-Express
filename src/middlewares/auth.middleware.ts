@@ -2,28 +2,37 @@ import { Request, Response, NextFunction } from 'express'
 import AuthUtils from '../utils/auth.utils'
 
 class AuthMiddleware {
-  public authMiddleware(req: Request, res: Response, next: NextFunction) {
+  public async authMiddleware(req: Request, res: Response, next: NextFunction) {
+    const accessToken = req.headers.authorization?.split('Bearer ')[1]
+    const refreshToken = req.headers.refreshtoken as string
     try {
-      const authHeader = req.headers.authorization
-      console.log(authHeader, 'authHeader')
-      if (!authHeader) {
-        return res.status(401).json({ error: 'Authorization header not found' })
+      if (accessToken) {
+        const accesTokenExpired = AuthUtils.isAccessTokenExpired(accessToken)
+        if (accesTokenExpired) {
+          if (!refreshToken) {
+            return res
+              .status(401)
+              .json({ error: 'AccessToken expired, RefreshToken missing' })
+          }
+          const refreshTokenExpired =
+            AuthUtils.isRefreshTokenExpired(refreshToken)
+          if (refreshTokenExpired) {
+            return res.status(401).json({ error: 'RefreshToken expired' })
+          }
+          const refreshTokenData = AuthUtils.verifyRefreshToken(refreshToken)
+          req.userId = refreshTokenData.userId
+        } else {
+          const accessTokenData = AuthUtils.verifyAccessToken(accessToken)
+          req.userId = accessTokenData.userId
+        }
+      } else {
+        return res.status(401).json({ error: 'AccesToken missing' })
       }
-      const [type, token] = authHeader.split(' ')
-      if (type !== 'Bearer' || !token) {
-        return res.status(401).json({ error: 'Invalid authorization header' })
-      }
-      console.log(token, 'token')
-
-      const expired = AuthUtils.isAccessTokenExpired(token)
-      console.log(expired, 'expired')
-
-      if (expired) return res.status(401).json({ error: 'Token Expired' })
       next()
     } catch (error) {
-      console.error(error)
-      res.status(401).json({ error: 'Invalid token' })
+      return res.status(401).json({ error: 'Authentication error' })
     }
   }
 }
+
 export default new AuthMiddleware()

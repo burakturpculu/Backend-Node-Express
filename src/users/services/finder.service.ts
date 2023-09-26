@@ -28,6 +28,25 @@ class FinderService {
 
     return userDTO
   }
+
+  public async getUserById({ id }: { id: string }): Promise<UserDTO> {
+    const user: IUser | null = await UserModel.findOne({
+      id,
+    }).catch((error) => {
+      throw new SqlCustomError(error)
+    })
+
+    if (!user) throw new NotFoundClientError({ message: 'User Not found' })
+
+    const userDTO: UserDTO = {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      surname: user.surname,
+    }
+
+    return userDTO
+  }
 }
 
 export default new FinderService()

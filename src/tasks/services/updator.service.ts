@@ -20,6 +20,7 @@ class UpdatorService {
     ).catch((error) => {
       throw new SqlCustomError(error)
     })
+    console.log(task, 'task')
     if (!task) throw new NotFoundClientError('TASK_NOT_FOUND')
 
     LoggerUtil.log({

@@ -1,9 +1,9 @@
 interface TaskDTO {
   id: string
   name: string
-  created_at: Date
-  deleted_at: Date
-  updated_at: Date
+  created_at: string
+  deleted_at: string
+  updated_at: string
 }
 
 export default TaskDTO

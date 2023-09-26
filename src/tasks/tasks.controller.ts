@@ -14,6 +14,7 @@ class TaskController {
   ): Promise<Response> {
     const responseEntity = new OkSuccessfulResponse()
     try {
+      // const userId = req.userId
       responseEntity.data = await FinderService.getTask()
       return res.status(responseEntity.statusCode).json(responseEntity.data)
     } catch (exception: any) {

@@ -2,9 +2,11 @@ import { Router } from 'express'
 
 import TaskController from '../tasks/tasks.controller'
 
+import AuthMiddleware from '../middlewares/auth.middleware'
+
 const router: Router = Router()
 
-router.get('/api/tasks', TaskController.getTask)
+router.get('/api/tasks', AuthMiddleware.authMiddleware, TaskController.getTask)
 
 router.get('/api/tasks/:id', TaskController.getTaskById)
 

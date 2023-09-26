@@ -1,7 +1,6 @@
 import AuthDTO from './auth.dto'
 import UserDTO from '../users/users.dto'
 import FinderService from '../users/services/finder.service'
-import { IUser } from '../users/users.model'
 import AuthUtil from '../utils/auth.utils'
 
 class AuthService {
@@ -11,17 +10,18 @@ class AuthService {
   }: {
     email: string
     password: string
-  }): Promise<{ data: AuthDTO }> {
+  }): Promise<AuthDTO> {
     const data: UserDTO = await FinderService.getUserByEmailAndPassword({
       email,
       password,
     })
     const accessToken = AuthUtil.generateAccessToken(data.id)
-    const response = { data: {} as AuthDTO }
-    const authDTO: AuthDTO = {
+    const refreshToken = AuthUtil.generateRefreshToken(data.id)
+
+    const response: AuthDTO = {
       accessToken: accessToken,
+      refreshToken: refreshToken,
     }
-    response.data = authDTO
 
     return response
   }
