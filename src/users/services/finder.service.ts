@@ -36,8 +36,6 @@ class FinderService {
       throw new SqlCustomError(error)
     })
 
-    console.log(user, 'user')
-
     if (!user) throw new NotFoundClientError({ message: 'User Not found' })
 
     const userDTO: UserDTO = {

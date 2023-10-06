@@ -18,8 +18,8 @@ const userSchema: Schema = new Schema({
   surname: { type: String, required: true },
   name: { type: String, required: true },
   created_at: { type: String, required: true },
-  updated_at: { type: String, required: true },
-  deleted_at: { type: String, required: true },
+  updated_at: { type: String, required: false },
+  deleted_at: { type: String, required: false },
 })
 
 const UserModel: Model<IUser> = mongoose.model<IUser>('users', userSchema)

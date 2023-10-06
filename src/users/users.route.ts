@@ -10,6 +10,6 @@ router.get('/api/user/:id', UserController.getUserById)
 
 router.patch('/api/user/:id', UserController.updateByName)
 
-router.delete('/api/user/:id', UserController.updateByName)
+router.delete('/api/user/:id', UserController.deleteByName)
 
 export default router
