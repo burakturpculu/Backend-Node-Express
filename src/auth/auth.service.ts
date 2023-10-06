@@ -11,7 +11,7 @@ class AuthService {
     email: string
     password: string
   }): Promise<AuthDTO> {
-    const data: UserDTO = await FinderService.getUserByEmailAndPassword({
+    const data: UserDTO = await FinderService.findByEmailAndPassword({
       email,
       password,
     })
@@ -21,6 +21,7 @@ class AuthService {
     const response: AuthDTO = {
       accessToken: accessToken,
       refreshToken: refreshToken,
+      id: data.id,
     }
 
     return response

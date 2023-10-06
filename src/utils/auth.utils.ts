@@ -59,6 +59,11 @@ class AuthUtil {
   public generateAccessToken(userId: string): string {
     try {
       const secretKey = process.env.ACCESS_TOKEN_SECRET || ''
+      console.log(
+        process.env.ACCESS_TOKEN_SECRET,
+        'process.env.ACCESS_TOKEN_SECRET'
+      )
+
       return jwt.sign({ userId: userId }, secretKey, {
         expiresIn: '1h',
       })

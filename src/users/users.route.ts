@@ -1,9 +1,15 @@
 import { Router } from 'express'
 
-import HealthController from '../controllers/HealthController'
+import UserController from './users.controller'
 
 const router: Router = Router()
 
-router.get('/health', HealthController.health)
+router.post('/api/user/save', UserController.save)
+
+router.get('/api/user/:id', UserController.getUserById)
+
+router.patch('/api/user/:id', UserController.updateByName)
+
+router.delete('/api/user/:id', UserController.updateByName)
 
 export default router

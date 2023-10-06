@@ -1,6 +1,6 @@
 import express, { Application } from 'express'
 import authRouter from '../auth/auth.route'
-import taskRouter from '../tasks/tasks.route'
+import userRoute from '../users/users.route'
 import setupSwagger from '../swagger'
 import cors from 'cors'
 import cookieParser from 'cookie-parser' // Cookie-parser middleware ekleniyor
@@ -31,7 +31,7 @@ class ExpressProvider {
   }
   private useRoutes(): void {
     this.express.use(authRouter)
-    this.express.use(taskRouter)
+    this.express.use(userRoute)
   }
   private useCors(): void {
     const corsOptions = {

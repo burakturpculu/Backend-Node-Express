@@ -6,6 +6,9 @@ export interface IUser extends Document {
   email: string
   name: string
   surname: string
+  created_at: string
+  updated_at: string
+  deleted_at: string
 }
 
 const userSchema: Schema = new Schema({
@@ -14,6 +17,9 @@ const userSchema: Schema = new Schema({
   email: { type: String, required: true },
   surname: { type: String, required: true },
   name: { type: String, required: true },
+  created_at: { type: String, required: true },
+  updated_at: { type: String, required: true },
+  deleted_at: { type: String, required: true },
 })
 
 const UserModel: Model<IUser> = mongoose.model<IUser>('users', userSchema)

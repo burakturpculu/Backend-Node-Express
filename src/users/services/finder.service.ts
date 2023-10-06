@@ -3,7 +3,7 @@ import UserDTO from '../users.dto'
 
 import { SqlCustomError, NotFoundClientError } from 'errors'
 class FinderService {
-  public async getUserByEmailAndPassword({
+  public async findByEmailAndPassword({
     email,
     password,
   }: {
@@ -29,12 +29,14 @@ class FinderService {
     return userDTO
   }
 
-  public async getUserById({ id }: { id: string }): Promise<UserDTO> {
+  public async findById({ id }: { id: string }): Promise<UserDTO> {
     const user: IUser | null = await UserModel.findOne({
-      id,
+      _id: id,
     }).catch((error) => {
       throw new SqlCustomError(error)
     })
+
+    console.log(user, 'user')
 
     if (!user) throw new NotFoundClientError({ message: 'User Not found' })
 
